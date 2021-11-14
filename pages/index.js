@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import { Card, Button, Form, Input, Row, Col, message, Avatar } from "antd";
+import moment from "moment";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import "antd/dist/antd.css";
-import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
+
+/*
+  id
+  title
+  description
+  createdAt
+*/
 
 const { Meta } = Card;
 
@@ -56,13 +64,14 @@ export default function Home() {
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">
+              <PlusOutlined />
               Crear tarea
             </Button>
           </Form.Item>
         </Form>
       </div>
       <Row gutter={[16, 16]} style={{ margin: 50 }}>
-        {todos.map(({ id, title, description }) => (
+        {todos.map(({ id, title, description, createdAt }) => (
           <Col
             key={`todo-${id}`}
             className="gutter-row"
@@ -75,6 +84,7 @@ export default function Home() {
             <Card
               cover={null}
               actions={[
+                moment(new Date()).format("ddd, hA"),
                 <DeleteOutlined
                   style={{ padding: 0 }}
                   onClick={() => handleDelete(id)}
